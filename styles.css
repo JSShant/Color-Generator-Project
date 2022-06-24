@@ -46,10 +46,10 @@ button {
     width: 80%;
     border-top-right-radius: 1rem;
     border-top-left-radius: 1rem;
-    pointer-events: none;
+    /* pointer-events: none; */
     /* Add Adjustment Class Later */
-    opacity: 0;
-    transform: translateY(100px);
+    /* opacity: 0; */
+    /* transform: translateY(100px); */
     transition: all 0.5s ease-in-out;
 }
 
@@ -119,4 +119,24 @@ button {
     background: none;
     cursor: pointer;
     margin: 2rem 0rem;
+}
+
+/* Slider Adjustments Styling */
+input[type="range"] {
+    -webkit-appearance: none;
+    margin: 1rem 0rem;
+    width: 100%;
+    position: relative;
+    border-radius: 1rem;
+    cursor: pointer;
+}
+
+/* Functionality in Chrome */
+input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    border: none;
+    background: white;
+    height: 0.7rem;
+    width: 0.7rem;
+    border-radius: 50%;
 }
