@@ -216,11 +216,17 @@ const saveBtn = document.querySelector(".save__btn");
 const submitSave = document.querySelector(".save__popup--submit");
 const closeSave = document.querySelector(".save__popup--close");
 const saveContainer = document.querySelector(".save__container");
-const saveInput = document.querySelector(".save__popup--input")
+const saveInput = document.querySelector(".save__popup--input");
+const libraryContainer = document.querySelector(".library__container");
+const libraryBtn = document.querySelector(".library__btn");
+const libraryClose = document.querySelector(".library__popup--close");
 
 //Event Listeners
 saveBtn.addEventListener("click", openPalette);
 closeSave.addEventListener("click", closePalette)
+submitSave.addEventListener("click", savePalette);
+libraryBtn.addEventListener("click", openLibrary);
+libraryClose.addEventListener("click", closeLibrary);
 
 
 
@@ -234,6 +240,83 @@ function openPalette(e){
 function closePalette(e){
     const popup = saveContainer.children[0];
     saveContainer.classList.remove("active");
+    popup.classList.remove("active");
+}
+
+function savePalette(e) {
+    saveContainer.classList.remove("active");
+    popup.classList.remove("active");
+    const name = saveInput.value;
+    const colors = [];
+    currentHex.forEach(hex => {
+        colors.push(hex.innerText);
+    })
+    //Generate Object
+    let paletteNr = savedPalettes.length;
+    const paletteObject = {name, colors, nr: paletteNr};
+    savedPalettes.push(paletteObject);
+    //Save to loacl Storage
+    saveToLocal(paletteObject);
+    saveInput.value = "";
+    //Generate the palette for library
+    const palette = document.createElement("div");
+    palette.classList.add("custom__palette");
+    const title = document.createElement("h4");
+    title.innerText = paletteObject.name;
+    const preview = document.createElement("div");
+    preview.classList.add("small__preview");
+    paletteObject.colors.forEach(smallColor => {
+        const smallDiv = document.createElement("div");
+        smallDiv.style.backgroundColor = smallColor;
+        preview.appendChild(smallDiv)
+    });
+    const paletteBtn = document.createElement("button");
+    paletteBtn.classList.add("palette__btn");
+    paletteBtn.classList.add(paletteObject.nr);
+    paletteBtn.innerText = "Select";
+
+    //Choose Palette
+    paletteBtn.addEventListener("click", e => {
+        closeLibrary();
+        const paletteIndex = e.target.classList[1];
+        initialColors = [];
+        savedPalettes[paletteIndex].colors.forEach((color,index) => {
+            initialColors.push(color);
+            colorDivs[index].style.backgroundColor = color;
+            const text = colorDivs[index].children[0];
+            checkTextContrast(color, text);
+            updateTextUi(index);
+        })
+        resetInputs(); 
+    })
+
+    //Append to Library
+    palette.appendChild(title);
+    palette.appendChild(preview);
+    palette.appendChild(paletteBtn);
+    libraryContainer.children[0].appendChild(palette);
+
+};
+
+function saveToLocal(paletteObject){
+    //Check for local storage
+    let localPalettes;
+    if(localStorage.getItem("palettes") === null){
+        localPalettes = []
+    } else {
+        localPalettes = JSON.parse(localStorage.getItem("palettes"))
+    }
+    localPalettes.push(paletteObject);
+    localStorage.setItem("palettes", JSON.stringify(localPalettes));
+}
+function openLibrary(){
+    const popup = libraryContainer.children[0]
+    libraryContainer.classList.add("active");
+    popup.classList.add("active");
+}
+function closeLibrary(){
+    const popup = libraryContainer.children[0]
+    libraryContainer.classList.remove("active");
     popup.classList.remove("active");
 }
 

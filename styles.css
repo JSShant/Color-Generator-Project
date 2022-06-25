@@ -85,7 +85,8 @@ button {
 .save__btn,
 .save__popup--close,
 .save__popup--submit,
-.library__popup--close {
+.library__popup--close,
+.palette__btn {
     font-size: 1.2rem;
     margin: 1rem;
     padding: 1rem 2rem;
@@ -96,7 +97,8 @@ button {
     border-radius: 1rem;
 }
 
-.save__popup--close {
+.save__popup--close,
+.library__popup--close {
     position: absolute;
     top: 0;
     right: 0;
@@ -181,14 +183,44 @@ input[type="range"]::-webkit-slider-thumb {
     min-height: 30vh;
 }
 
+.library__popup {
+    min-width: 40%;
+    padding: 1rem;
+    justify-content: flex-start;
+    overflow-y: scroll;
+    max-height: 50vh;
+}
+
+.custom__palette {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    width: 100%;
+    padding: 2rem;
+}
+
+.small__preview {
+    display: flex;
+    flex: 1;
+}
+
+.custom__palette h4 {
+    flex: 1;
+}
+
+.small__preview div {
+    height: 5rem;
+    flex: 1;
+}
+
 .copy__popup--text,
-.copy__popup--icon,
-.library__popup--text {
+.copy__popup--icon {
     font-size: 2rem;
     padding: 2rem;
 }
 
-.save__popup--text {
+.save__popup--text,
+.library__popup--text {
     font-size: 1.8rem;
     padding: 2rem;
 }
