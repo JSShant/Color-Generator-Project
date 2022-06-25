@@ -82,7 +82,10 @@ button {
 
 .library__btn,
 .generate__btn,
-.save__btn {
+.save__btn,
+.save__popup--close,
+.save__popup--submit,
+.library__popup--close {
     font-size: 1.2rem;
     margin: 1rem;
     padding: 1rem 2rem;
@@ -91,6 +94,16 @@ button {
     color: white;
     cursor: pointer;
     border-radius: 1rem;
+}
+
+.save__popup--close {
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 0.4rem 0.8rem;
+    font-size: 1rem;
+    background: black;
+    font-weight: bold;
 }
 
 .library__text,
@@ -137,7 +150,9 @@ input[type="range"]::-webkit-slider-thumb {
 }
 
 /* Copy to Clipboard */
-.copy__container {
+.copy__container,
+.save__container,
+.library__container {
     position: fixed;
     top: 0;
     left: 0;
@@ -151,7 +166,9 @@ input[type="range"]::-webkit-slider-thumb {
     pointer-events: none;
 }
 
-.copy__popup {
+.copy__popup,
+.save__popup,
+.library__popup {
     background: white;
     display: flex;
     flex-direction: column;
@@ -165,17 +182,27 @@ input[type="range"]::-webkit-slider-thumb {
 }
 
 .copy__popup--text,
-.copy__popup--icon {
+.copy__popup--icon,
+.library__popup--text {
     font-size: 2rem;
     padding: 2rem;
 }
 
-.copy__container.active {
+.save__popup--text {
+    font-size: 1.8rem;
+    padding: 2rem;
+}
+
+.copy__container.active,
+.save__container.active,
+.library__container.active {
     opacity: 1;
     pointer-events: all;
 }
 
-.copy__popup.active {
+.copy__popup.active,
+.save__popup.active,
+.library__popup.active {
     transform: translateY(0rem);
 }
 
@@ -185,4 +212,9 @@ input[type="range"]::-webkit-slider-thumb {
     opacity: 1;
     transform: translateY(0);
     pointer-events: all;
+}
+
+.save__popup--input {
+    font-size: 1.5rem;
+    padding: 1rem;
 }

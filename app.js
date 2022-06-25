@@ -8,9 +8,9 @@ const adjustBtn = document.querySelectorAll(".adjust");
 const closeAdjustment = document.querySelectorAll(".adjustment__close");
 const sliderContainers = document.querySelectorAll(".adjustment");
 const lockButton = document.querySelectorAll(".lock");
-
 let initialColors;
-
+// this is for local Storage
+let savedPalettes = [];
 
 
 // EVENT LISTENERS
@@ -209,6 +209,34 @@ function openAdjustmentPanel(index){
 function closeAdjustmentPanel(index){
     sliderContainers[index].classList.remove("adjustment__active")
 }
+
+
+//Implement Save to Palette and LOCAL STORAGE
+const saveBtn = document.querySelector(".save__btn");
+const submitSave = document.querySelector(".save__popup--submit");
+const closeSave = document.querySelector(".save__popup--close");
+const saveContainer = document.querySelector(".save__container");
+const saveInput = document.querySelector(".save__popup--input")
+
+//Event Listeners
+saveBtn.addEventListener("click", openPalette);
+closeSave.addEventListener("click", closePalette)
+
+
+
+//Functions
+function openPalette(e){
+    const popup = saveContainer.children[0];
+    saveContainer.classList.add("active");
+    popup.classList.add("active");
+}
+
+function closePalette(e){
+    const popup = saveContainer.children[0];
+    saveContainer.classList.remove("active");
+    popup.classList.remove("active");
+}
+
 
 randomColors()
 
