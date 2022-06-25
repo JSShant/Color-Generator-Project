@@ -7,6 +7,8 @@ const popup = document.querySelector(".copy__container");
 const adjustBtn = document.querySelectorAll(".adjust");
 const closeAdjustment = document.querySelectorAll(".adjustment__close");
 const sliderContainers = document.querySelectorAll(".adjustment");
+const lockButton = document.querySelectorAll(".lock");
+
 let initialColors;
 
 
@@ -44,6 +46,16 @@ closeAdjustment.forEach((button,index) => {
     });
 });
 
+lockButton.forEach((button, index) => {
+    button.addEventListener("click", () => {
+        colorDivs[index].classList.toggle("locked");
+        if (colorDivs[index].classList.contains("locked")) {
+            button.innerHTML = `<i class = "fas fa-lock"></i>`;
+        } else {
+            button.innerHTML = `<i class = "fas fa-lock-open"></i>`;
+        }
+    })
+})
 //FUNCTIONS
 
 //Color Generator
@@ -59,8 +71,13 @@ function randomColors(){
         const hexText = div.children[0];
         const randomColor = generateHex();
         //Add to initial colors array
-        initialColors.push(chroma(randomColor).hex());
-
+        if(div.classList.contains("locked")){
+            initialColors.push(hexText.innerText)
+            return;
+        } else{
+            initialColors.push(chroma(randomColor).hex());
+        }
+        
         //Add color to background
         div.style.backgroundColor = randomColor;
         hexText.innerText = randomColor;
@@ -77,8 +94,14 @@ function randomColors(){
     })
     //Reset inputs
     resetInputs();
-};
-randomColors()
+    //Check for button contrast
+    adjustBtn.forEach((button,index) => {
+        checkTextContrast(initialColors[index], button)
+        checkTextContrast(initialColors[index], lockButton[index])
+    })
+    
+}
+
 
 function checkTextContrast(color, text){
     const luminance = chroma(color).luminance();
@@ -105,6 +128,7 @@ function coloriseAdjustment(color,hue,brightness, saturation){
 }
 
 function hslControls(slider){
+    console.log(slider.target)
     const index = 
         slider.target.getAttribute("data-bright") || 
         slider.target.getAttribute("data-sat") || 
@@ -151,7 +175,6 @@ function resetInputs(){
         if(slider.name === "hue"){
             const hueColor = initialColors[slider.getAttribute("data-hue")];
             const hueValue = chroma(hueColor).hsl()[0];
-            console.log(hueValue)
             slider.value = Math.floor(hueValue);
         }
         if(slider.name === "brightness"){
@@ -186,4 +209,6 @@ function openAdjustmentPanel(index){
 function closeAdjustmentPanel(index){
     sliderContainers[index].classList.remove("adjustment__active")
 }
+
+randomColors()
 
