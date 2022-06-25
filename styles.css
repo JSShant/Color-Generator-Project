@@ -46,18 +46,13 @@ button {
     width: 80%;
     border-top-right-radius: 1rem;
     border-top-left-radius: 1rem;
-    /* pointer-events: none; */
+    pointer-events: none;
     /* Add Adjustment Class Later */
-    /* opacity: 0; */
-    /* transform: translateY(100px); */
+    opacity: 0;
+    transform: translateY(100px);
     transition: all 0.5s ease-in-out;
 }
 
-.adjustment__active {
-    opacity: 1;
-    transform: translateY(0);
-    pointer-events: all;
-}
 
 .adjustment__close {
     position: absolute;
@@ -182,4 +177,12 @@ input[type="range"]::-webkit-slider-thumb {
 
 .copy__popup.active {
     transform: translateY(0rem);
+}
+
+/* Adjustment Popups */
+
+.adjustment__active {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: all;
 }
